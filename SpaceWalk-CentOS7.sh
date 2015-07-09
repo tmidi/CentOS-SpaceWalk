@@ -46,14 +46,14 @@ sudo yum install -y http://yum.spacewalkproject.org/2.3/RHEL/7/x86_64/spacewalk-
 
 # For this install, I will be using Postgre SQL
 
-yum install spacewalk-setup-postgresql
+yum install -y spacewalk-setup-postgresql
 
 # Configure firewalld to allow http and https then reload the service:
 
 sudo firewall-cmd --add-service=http --permanent; sudo firewall-cmd --add-service=http --permanent; firewalld-cmd --reload
 
 # Install spacewalk-postgresql
-sudo yum install spacewalk-postgresql
+sudo yum install -y spacewalk-postgresql
 
 # Setup SpaceWalk
 spacewalk-setup --disconnected
