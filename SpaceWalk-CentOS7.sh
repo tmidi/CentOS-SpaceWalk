@@ -64,3 +64,5 @@ pause 'Press [Enter] key to continue...'
 echo "Browse to the above  ^^^ URL ^^^ to manage your install"
 echo "All is done here"
 echo "Have a good day"
+# Remove Exec permissions from this file
+chmod -x SpaceWalk-CentOS7.sh
