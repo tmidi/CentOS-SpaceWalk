@@ -3,6 +3,8 @@
 # Spacewalk installed version : spacewalk-repo-2.3-4
 # By Taleeb midi
 
+
+
 # Setup Pause function
 function pause(){
    read -p "$*"
@@ -11,6 +13,9 @@ function pause(){
 # !!!! Function to get IP address (change the "2p" part of SED to get the IP address you want use):
 # If not sure how to edit this function, please comment the following line(12), as well as lines (18-20), then edit /etc/host with you hostname and IP Address.
 IPADDR="$(ip addr | grep -E -o "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" | sed -n '2p')"
+
+# Function to get the active firewall zone
+ZONE="$(firewall-cmd --get-active-zone | sed -n '1p')"
 
 # 1 - set hostname to spacewalk; !!!! Change it to whatever hostname you want to use !!!!!!
 hostname spacewalk
@@ -50,7 +55,7 @@ yum install -y spacewalk-setup-postgresql
 
 # Configure firewalld to allow http and https then reload the service:
 
-sudo firewall-cmd --add-service=http --permanent; sudo firewall-cmd --add-service=http --permanent; firewalld-cmd --reload
+sudo firewall-cmd --zone=$ZONE --add-service=http --permanent; sudo firewall-cmd --zone=$ZONE --add-service=http --permanent; firewalld-cmd --reload
 
 # Install spacewalk-postgresql
 sudo yum install -y spacewalk-postgresql
