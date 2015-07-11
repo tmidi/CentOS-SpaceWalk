@@ -19,15 +19,21 @@ ZONE="$(firewall-cmd --get-active-zone | sed -n '1p')"
 # Ask for what hostname to be used, please use a FQDN 
 echo -n "Enter a hostname to be used with this Spacewalk installation:\n"
 read -s HOSTNAME
-# 1 - set hostname to user preference
-hostnamectl set-hostname $HOSTNAME
 
-# 2 - edit /etc/hosts
+echo "edit /etc/hosts"
 cat >> /etc/hosts << EOF
 spacewalk  $IPADDR
 EOF
 
-# Rstart hostnamed 
+echo "set hostname to user preference"
+hostnamectl set-hostname $HOSTNAME
+
+echo "edit /etc/hosts"
+cat >> /etc/hosts << EOF
+spacewalk  $IPADDR
+EOF
+
+echo "Rstart hostnamed"
 systemctl restart systemd-hostnamed
 
 # Make sure you can resolve the hostname 
