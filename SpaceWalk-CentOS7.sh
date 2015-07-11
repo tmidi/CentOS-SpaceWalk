@@ -16,16 +16,21 @@ IPADDR="$(ip addr | grep -E -o "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]
 
 # Function to get the active firewall zone
 ZONE="$(firewall-cmd --get-active-zone | sed -n '1p')"
-
-# 1 - set hostname to spacewalk; !!!! Change it to whatever hostname you want to use !!!!!!
-hostname spacewalk
+# Ask for what hostname to be used, please use a FQDN 
+echo -n "Enter a hostname to be used with this Spacewalk installation:\n"
+read -s HOSTNAME
+# 1 - set hostname to user preference
+hostnamectl set-hostname $HOSTNAME
 
 # 2 - edit /etc/hosts
 cat >> /etc/hosts << EOF
 spacewalk  $IPADDR
 EOF
 
-#Make sure you can resolve the hostname 
+# Rstart hostnamed 
+systemctl restart systemd-hostnamed
+
+# Make sure you can resolve the hostname 
 ping $(hostname -f) -c4
 
 # Fully update the OS
