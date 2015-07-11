@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 # SpaceWalk bash installation on CentOS 7
 # Spacewalk installed version : spacewalk-repo-2.3-4
 # By Taleeb midi
