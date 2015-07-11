@@ -18,7 +18,7 @@ IPADDR="$(ip addr | grep -E -o "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]
 ZONE="$(firewall-cmd --get-active-zone | sed -n '1p')"
 # Ask for what hostname to be used, please use a FQDN 
 echo -n "Enter a hostname to be used with this Spacewalk installation:"
-read -s HOSTNAME
+read HOSTNAME
 
 echo "edit /etc/hosts"
 cat >> /etc/hosts << EOF
